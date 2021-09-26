@@ -38,7 +38,8 @@ def set_up_log(logging_level = logging.INFO):
     logging.basicConfig(filename=LOG_FILE, level=logging_level)
 
 def log(statement):
-    logging.info(statement)
+    log_statement = datetime.now().strftime("%Y-%m-%d %H:%M:%S") + "\t" + statement
+    logging.info(log_statement)
 
 
 def exit_handler():
