@@ -6,7 +6,8 @@ import atexit
 import logging
 from lifxlan import *
 from pathlib import Path
-import common_constants
+from functions.common_constants import *
+
 
 def create_directory(path):
     if not os.path.exists(path):
@@ -14,20 +15,20 @@ def create_directory(path):
         os.makedirs(path)
 
 def set_up_log(app_name, logging_level = logging.INFO):
-    create_directory(common_constants.LOG_DIR)
-    log_filepath = common_constants.get_log_filepath(app_name)
+    create_directory(LOG_DIR)
+    log_filepath = get_log_filepath(app_name)
     file = Path(log_filepath)
     file.touch(exist_ok=True)
     logging.basicConfig(filename=log_filepath, level=logging_level)
 
 def log(statement):
-    log_statement = datetime.now().strftime("%Y-%m-%d %H:%M:%S") + "\t" + statement
+    log_statement = str(datetime.now().strftime("%Y-%m-%d %H:%M:%S") + "\t" + str(statement))
     logging.info(log_statement)
 
 
-def exit_handler():
+def exit_handler(lifxlan=LifxLAN(NUMBER_OF_LIGHTS)):
     print("Exiting application, turning lights off.")
-    lifxlan.set_power_all_lights(common_constatns.OFF)    
+    lifxlan.set_power_all_lights(OFF)    
 
 
 def get_percent_difference(current, previous):
@@ -42,12 +43,12 @@ def get_percent_difference(current, previous):
     return percent_difference
 
 
-def set_color_all(color, brightness=common_constants.MAX_VALUE):
+def set_color_all(color, brightness=MAX_VALUE, lifxlan=LifxLAN(NUMBER_OF_LIGHTS)):
     if isinstance(color, int):
         log("Setting color to: " + str(color))
-        log("Setting brightness to: " + str(brightness / common_constants.MAX_VALUE * 100) + "%")
-        lifxlan.set_power_all_lights(common_constants.ON)
-        lifxlan.set_color_all_lights([int(round(color)), common_constants.MAX_VALUE, int(round(brightness)), 9000])
+        log("Setting brightness to: " + str(brightness / MAX_VALUE * 100) + "%")
+        lifxlan.set_power_all_lights(ON)
+        lifxlan.set_color_all_lights([int(round(color)), MAX_VALUE, int(round(brightness)), 9000])
     elif isinstance(color, float):
         set_color_all(color, brightness)
     #elif isinstance(color, RED.__class__.__name__):
@@ -59,7 +60,7 @@ def set_color_all(color, brightness=common_constants.MAX_VALUE):
 
 def normalize_percent_difference_for_color(percent_difference, percentage_range=5):
     log("Noramlizing percent differnce of " + str(percent_difference) + "%")
-    return_value = abs(percent_difference) * common_constants.MAX_VALUE / percentage_range
+    return_value = abs(percent_difference) * MAX_VALUE / percentage_range
     log("Percent difference normalized to " + str(return_value))
     return return_value   
 

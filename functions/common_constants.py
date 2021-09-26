@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # coding=utf-8
 
+from datetime import datetime
+
 ON=1
 OFF=0
 NUMBER_OF_LIGHTS = 2
@@ -11,4 +13,4 @@ LOG_DIR = PROJECT_HOME + '/log'
 
 
 def get_log_filepath(app_name):
-    return LOG_DIR + "/" + app_name + "_" + datetime.now.strftime("%Y%m%d") + ".log"
+    return LOG_DIR + "/" + app_name + "_" + datetime.now().strftime("%Y%m%d") + ".log"
