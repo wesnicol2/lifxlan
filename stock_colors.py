@@ -69,7 +69,7 @@ def getStockChangeToday(ticker):
 def set_color_all(color, brightness=MAX_VALUE):
     if isinstance(color, int):
         log("Setting color to: " + str(color))
-        log("Setting brightness to: " + str(brightness / MAX_VALUE) * 100 + "%")
+        log("Setting brightness to: " + str(brightness / MAX_VALUE * 100) + "%")
         lifxlan.set_power_all_lights(ON)
         lifxlan.set_color_all_lights([int(round(color)), MAX_VALUE, int(round(brightness)), 9000])
     elif isinstance(color, float):
