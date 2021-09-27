@@ -8,6 +8,8 @@ from lifxlan import *
 from pathlib import Path
 from functions.common_constants import *
 
+lifxlan = LifxLAN(NUMBER_OF_LIGHTS)
+
 def create_directory(path):
     if not os.path.exists(path):
         print("log directory created")
