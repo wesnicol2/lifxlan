@@ -13,4 +13,4 @@ LOG_DIR = PROJECT_HOME + '/log'
 
 
 def get_log_filepath(app_name):
-    return LOG_DIR + "/" + app_name + "_" + datetime.now.strftime("%Y%m%d") + ".log"
+    return LOG_DIR + "/" + app_name + "_" + datetime.now().strftime("%Y%m%d") + ".log"
