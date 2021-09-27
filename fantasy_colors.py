@@ -21,7 +21,11 @@ def main():
     set_up_log(APP_NAME)
     log("Starting " + APP_NAME + "...")
     oauth = getOAuth()
-    fantasy_league = league.League(oauth, LEAGUE_ID )
+    print("League ID: " + LEAGUE_ID)
+    
+    # Need to figure out the NFL game code (I think it is one code for the entire sport)
+    print("Game IDs: " + str(game.Game(oauth, "371").league_ids()))
+    fantasy_league = league.League(oauth, LEAGUE_ID)
     print(fantasy_league.current_week())
 
     league_standings = fantasy_league.standings()
