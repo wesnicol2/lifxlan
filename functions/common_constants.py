@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # coding=utf-8
 
+from datetime import datetime
+
 ON=1
 OFF=0
 NUMBER_OF_LIGHTS = 2
