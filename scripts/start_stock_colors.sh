@@ -4,6 +4,6 @@ PID_FILE="${PROJECT_HOME}/scripts/stock_colors.pid"
 touch $PID_FILE
 pid=`cat "${PID_FILE}"`
 kill $pid
-python3 $PROJECT_HOME/stock_colors.py $1 > /dev/null 2>&1 &
+/usr/bin/python3 $PROJECT_HOME/stock_colors.py $1 > /dev/null 2>&1 &
 pid=$!
 echo "${pid}" > $PID_FILE
