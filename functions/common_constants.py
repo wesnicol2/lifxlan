@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding=utf-8
 
-from datetime import datetime
+import datetime
 
 ON=1
 OFF=0
