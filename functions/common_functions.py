@@ -4,7 +4,7 @@ import sys
 import os
 import atexit
 import logging
-import lifxlan
+from lifxlan import *
 from pathlib import Path
 from functions.common_constants import *
 
