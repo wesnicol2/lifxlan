@@ -4,6 +4,7 @@
 from yahoo_oauth import OAuth2
 from yahoo_fantasy_api import *
 import json
+import pprint
 
 from functions.yahoo_constants import *
 from functions.common_functions import *
@@ -22,14 +23,22 @@ def main():
     log("Starting " + APP_NAME + "...")
     oauth = getOAuth()
     print("League ID: " + LEAGUE_ID)
+    print("Game ID: " + GAME_ID)
     
-    # Need to figure out the NFL game code (I think it is one code for the entire sport)
-    print("Game IDs: " + str(game.Game(oauth, "371").league_ids()))
-    fantasy_league = league.League(oauth, LEAGUE_ID)
-    print(fantasy_league.current_week())
+    nfl_game = game.Game(oauth, GAME_ID)
+    
+    print("League IDs:")
+    pprint.pprint(nfl_game.league_ids("2021"))
+    league = nfl_game.to_league(LEAGUE_ID)
+    
+    print("League:")
+    pprint.pprint(league)
+    
+    print("Current Week: " + league.current_week())
 
-    league_standings = fantasy_league.standings()
-    print("league_standings: " + str(league_standings))
+    league_standings = league.standings()
+    print("league_standings: ")
+    pprint.pprint(league_standings)
 
 
 #atexit.register(exit_handler)
