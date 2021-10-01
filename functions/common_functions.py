@@ -61,7 +61,14 @@ def set_color_all(color, brightness=MAX_VALUE):
 
 def normalize_percent_difference_for_color(percent_difference, percentage_range=5):
     log("Noramlizing percent differnce of " + str(percent_difference) + "%")
-    return_value = abs(percent_difference) * MAX_VALUE / percentage_range
+    log("Using percentage range of " + str(percentage_range) + "%")
+    return_value = percent_difference
+    if return_value > percentage_range:
+        return_value = percentage_range
+    elif return_value < -abs(percentage_range):
+        return_value = -abs(percentage_range)
+    
+    return_value = abs(return_value) * MAX_VALUE / percentage_range
     log("Percent difference normalized to " + str(return_value))
     return return_value   
 
