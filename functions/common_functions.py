@@ -40,7 +40,7 @@ def get_percent_difference(current, previous):
     except ZeroDivisionError:
         precent_difference = 0
 
-    log("Percent difference betweeen " + str(current) + " and " + str(previous) + " is " + str(percent_difference))
+    log("Percent difference betweeen " + str(current) + " and " + str(previous) + " is \t" + str(percent_difference) + "%")
     return percent_difference
 
 

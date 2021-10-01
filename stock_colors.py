@@ -11,6 +11,8 @@ from pathlib import Path
 import traceback
 from functions.common_constants import * 
 from functions.common_functions import *
+import functions.stock_constants as stock_constants
+
 
 APP_NAME = "stock_colors"
 DOW_JONES_AVERAGE = "^DJA"
@@ -25,24 +27,34 @@ lifxlan = LifxLAN(NUMBER_OF_LIGHTS)
 
 def getStockChangeToday(ticker):
     info=yf.Ticker(ticker).info
+    primary_current_price_key = stock_constants.RM_CURRENT_PRICE
+    secondary_current_price_key = stock_constants.RM_CURRENT_PRICE
+    primary_starting_price_key = stock_constants.RM_CLOSE_PRICE
+    secondary_starting_price_key = stock_constants.OPEN_PRICE    
+
     try:
-        current_price = info['regularMarketPrice']
-        log("Current Price: " + str(current_price))
-        open_price = info['regularMarketPreviousClose']
-        log("Day open price: " + str(open_price))
+        current_price = info[primary_current_price_key]
+        current_price_type = primary_current_price_key
     except:
-        log("Exception encountered while getting stock info:") 
-        log(traceback.format_exc())
-        sleep_duration = 15
-        log("Sleeping for " + str(sleep_duration) + " seconds before retrying...")
+        log("Could not retrieve " + str(primary_current_price_key) + " key from stock info object for ticker " + str(ticker))
+        log ("Trying with " + str(secondary_current_price_key) + " instead")
+        current_price = info[secondary_current_price_key] 
+        current_price_type = secondary_current_price_key
 
-        current_price = info['regularMarketPrice'] 
-        log("Current Price: " + str(current_price))
-        open_price = info['regularMarketPreviousClose']
-        log("Day open price: " + str(open_price))
+    try:
+        starting_price = info[primary_starting_price_key]
+        starting_price_type = primary_starting_price_key
 
+    except: 
+        log("Could not retrieve " + str(primary_starting_price_key) + " key from stock info object for ticker " + str(ticker))
+        log ("Trying with " + str(secondary_starting_price_key) + " instead")
+        starting_price = info[secondary_starting_price_key]
+        starting_price_type = secondary_starting_price_key
 
-    return get_percent_difference(current_price, open_price)
+    log(str(ticker) + " starting price (from '" + str(starting_price_type) + "' key):\t$" + str(starting_price))
+    log(str(ticker) + " current price(from '" + str(current_price_type) + "' key):\t\t$" + str(current_price))
+
+    return get_percent_difference(current_price, starting_price)
 
 
 def print_usage():
