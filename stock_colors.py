@@ -25,10 +25,23 @@ lifxlan = LifxLAN(NUMBER_OF_LIGHTS)
 
 def getStockChangeToday(ticker):
     info=yf.Ticker(ticker).info
-    current_price = info['regularMarketPrice']
-    log("Current Price: " + str(current_price))
-    open_price = info['regularMarketPreviousClose']
-    log("Day open price: " + str(open_price))
+    try:
+        current_price = info['regularMarketPrice']
+        log("Current Price: " + str(current_price))
+        open_price = info['regularMarketPreviousClose']
+        log("Day open price: " + str(open_price))
+    except:
+        log("Exception encountered while getting stock info:") 
+        log(traceback.format_exc())
+        sleep_duration = 15
+        log("Sleeping for " + str(sleep_duration) + " seconds before retrying...")
+
+        current_price = info['regularMarketPrice'] 
+        log("Current Price: " + str(current_price))
+        open_price = info['regularMarketPreviousClose']
+        log("Day open price: " + str(open_price))
+
+
     return get_percent_difference(current_price, open_price)
 
 
@@ -74,6 +87,7 @@ def main():
     except:
         log("Exception encounted:")
         log(traceback.format_exc())
+
         exit()
         
     #light1 = Light(LIGHT_1_MAC_ADDRESS, LIGHT_1_IP_ADDRESS)
