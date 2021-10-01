@@ -27,7 +27,7 @@ def getStockChangeToday(ticker):
     info=yf.Ticker(ticker).info
     current_price = info['regularMarketPrice']
     log("Current Price: " + str(current_price))
-    open_price = info['open']
+    open_price = info['regularMarketPreviousClose']
     log("Day open price: " + str(open_price))
     return get_percent_difference(current_price, open_price)
 
