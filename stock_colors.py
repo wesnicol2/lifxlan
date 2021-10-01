@@ -69,7 +69,7 @@ def main():
                 color = GREEN
         
             normalized = normalize_percent_difference_for_color(percent_difference)
-            set_color_all(color, normalize_percent_difference_for_color(percent_difference))
+            set_color_all(color, normalized)
 
     except:
         log("Exception encounted:")
