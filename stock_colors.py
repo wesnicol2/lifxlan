@@ -12,12 +12,12 @@ import traceback
 from functions.common_constants import * 
 from functions.common_functions import *
 import functions.stock_constants as stock_constants
-
+from retrying import retry
 
 APP_NAME = "stock_colors"
 DOW_JONES_AVERAGE = "^DJA"
 lifxlan = LifxLAN(NUMBER_OF_LIGHTS)
-
+MAX_RETRIES = 100
 #LIGHT_1_MAC_ADDRESS = "d0:73:d5:69:7f:33"
 #LIGHT_1_IP_ADDRESS = "192.168.0.2"
 #LIGHT_2_MAC_ADDRESS = "d0:73:d5:6b:80:bb"
@@ -71,7 +71,7 @@ def valid_ticker(ticker):
         return True
     
 
-
+@retry(stop_max_attempt_number=MAX_RETRIES)
 def main():
     set_up_log(APP_NAME)
     log("Starting program...")
