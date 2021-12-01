@@ -123,43 +123,76 @@ def main():
     getTeamById(teams, 10).points = 1038
       
     rankedTeams = sorted(teams, key=functools.cmp_to_key(compareTeams))
-    gamesLeft = 4
+    gamesLeft = 2
     
     i = 0
+    youMadeThePlayoffsBinaryArrays = []
+    youDidntMakeThePlayoffsBinaryArrays = []
+    youMadeTheSackoBinaryArrays = []
+    sackoOpponents = []
     while i < 2**gamesLeft:
         teamsTemp = copy.deepcopy(teams)
         binaryArray = getBinaryArray(i, gamesLeft)
         playGame(teamsTemp, 6, 10, 0) # If wokeington loses
-        playGame(teamsTemp, 3, 1, binaryArray[0])
-        playGame(teamsTemp, 7, 5, binaryArray[1])
-        playGame(teamsTemp, 4, 2, binaryArray[2])
-        playGame(teamsTemp, 9, 8, binaryArray[3])
+        playGame(teamsTemp, 3, 1, 1)
+        playGame(teamsTemp, 7, 5, binaryArray[0])
+        playGame(teamsTemp, 4, 2, 1)
+        playGame(teamsTemp, 9, 8, binaryArray[1])
         rankedTeams = sorted(teamsTemp, key=functools.cmp_to_key(compareTeams))
-        if ( (rankedTeams[0].id == 6 or rankedTeams[1].id == 6 or rankedTeams[2].id == 6 or rankedTeams[3].id == 6 or rankedTeams[4].id == 6 or rankedTeams[5].id == 6)):
-            print("You made the playoffs!")
-            print("Teams who won week 13: ")
+        
+        if rankedTeams[0].id == 6 or rankedTeams[1].id == 6 or rankedTeams[2].id == 6 or rankedTeams[3].id == 6 or rankedTeams[4].id == 6 or rankedTeams[5].id == 6:
+            youMadeThePlayoffsBinaryArrays.append(copy.deepcopy(binaryArray))
+        elif rankedTeams[7].id == 6 or rankedTeams[8].id == 6:
+            if rankedTeams[7].id == 6:
+                sackoTeam = rankedTeams[8]
+            elif rankedTeams[8].id == 6:
+                sackoTeam = rankedTeams[7]
+            youMadeTheSackoBinaryArrays.append(copy.deepcopy(binaryArray))
+            sackoOpponents.append(sackoTeam)
+        elif rankedTeams[6].id == 6:
+            youDidntMakeThePlayoffsBinaryArrays.append(copy.deepcopy(binaryArray))
+        i += 1
+
+    for binaryArray in youMadeThePlayoffsBinaryArrays:
+        print("You made the playoffs!")
+        printWinners(teams, binaryArray)
+    print("\n\n")
+
+    i = 0
+    for binaryArray in youMadeTheSackoBinaryArrays:
+        print("You play the sacko against " + sackoOpponents[i].name)
+        printWinners(teams, binaryArray)
+        i += 1
+    print("\n\n")
+
+    for binaryArray in youDidntMakeThePlayoffsBinaryArrays:
+        print("You didn't make the playoffs!")
+        printWinners(teams, binaryArray)
+    print("\n\n")
+
+def printWinners(teams, binaryArray):
+    print("Teams who won week 13: ")
             # if(binaryArray[0] == 1):
                 # print(getTeamById(teams, 6).name)
             # else:
                 # print(getTeamById(teams, 10).name)
-            if(binaryArray[0] == 1):
-                print(getTeamById(teams, 3).name)
-            else:
-                print(getTeamById(teams, 1).name)
-            if(binaryArray[1] == 1):
-                print(getTeamById(teams, 7).name)  
-            else:
-                print(getTeamById(teams, 5).name)
-            if(binaryArray[2] == 1):
-                print(getTeamById(teams, 4).name)
-            else:
-                print(getTeamById(teams, 2).name)
-            if(binaryArray[3] == 1):
-                print(getTeamById(teams, 9).name)  
-            else:
-                print(getTeamById(teams, 8).name)
-            print("\n\n\n")
-        i += 1
+    if(binaryArray[0] == 1):
+        print(getTeamById(teams, 7).name)
+    else:
+        print(getTeamById(teams, 5).name)
+    if(binaryArray[1] == 1):
+        print(getTeamById(teams, 9).name)  
+    else:
+        print(getTeamById(teams, 8).name)
+    # if(binaryArray[2] == 1):
+    #     print(getTeamById(teams, 4).name)
+    # else:
+    #     print(getTeamById(teams, 2).name)
+    # if(binaryArray[3] == 1):
+    #     print(getTeamById(teams, 9).name)  
+    # else:
+    #     print(getTeamById(teams, 8).name)
+    print("\n")
         
 #atexit.register(exit_handler)
 if __name__=="__main__":
