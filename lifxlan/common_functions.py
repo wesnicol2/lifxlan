@@ -4,7 +4,7 @@ import os
 import logging
 from lifxlan import *
 from pathlib import Path
-from common_constants import *
+from .common_constants import *
 
 lifxlan = LifxLAN(NUMBER_OF_LIGHTS)
 
