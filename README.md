@@ -3,7 +3,7 @@ To install this updated package...
         1. Clone repo
         2. git checkout installable_package
         3. (from base directory) python -m build
-        4. pip install <base-dir>/dist/lifxlan-2.0.0.tar.gz
+        4. pip install lifxlan/dist/lifxlan-2.0.0.tar.gz
 
 # lifxlan
 
