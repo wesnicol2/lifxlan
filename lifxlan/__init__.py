@@ -11,9 +11,9 @@ from .utils import *
 from .common_constants import *
 from .common_functions import *
 
-__version__     = '1.2.7'
+__version__     = '2.0.0'
 __description__ = 'API for local communication with LIFX devices over a LAN.'
 __url__         = 'https://github.com/wesnicol2/lifxlan'
 __author__      = 'Meghan Clark & Wes Nicol'
-__authoremail__ = 'mclarkk@berkeley.edu'
+__authoremail__ = 'wesnicol@me.com'
 __license__     = 'MIT'
