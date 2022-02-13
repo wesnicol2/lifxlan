@@ -11,14 +11,14 @@ PROJECT_HOME='/home/pi/workspace/lifx/stock_market_lights/my_fork/lifxlan'
 LOG_DIR = PROJECT_HOME + '/log'
 LIFX_COLORS = {
     'red': 0,
-    'orange': 35,
-    'gold': 47,
-    'yellow': 50,
-    'green': 100,
-    'teal': 180,
-    'blue': 110,
-    'purple': 270,
-    'pink': 290,
+    'orange': 6371,
+    'gold': 8556,
+    'yellow': 9102,
+    'green': 18204,
+    'teal': 32768,
+    'blue': 40960,
+    'purple': 49152,
+    'pink': 52792,
 }
 
 
